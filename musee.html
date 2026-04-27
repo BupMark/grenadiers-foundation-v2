@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Musée des Grenadiers — Grenadiers Foundation</title>
+<link rel="icon" href="https://raw.githubusercontent.com/BupMark/grenadiers-foundation/main/logo-horizontal.jpg"/>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;1,400&family=Lato:wght@300;400;700&display=swap');
+:root{--B:#00209F;--R:#D21034;--O:#C9A84C;--BS:#001570;--GC:#f4f5f8;--DK:#0d0d2b;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Lato',sans-serif;color:var(--DK);background:#fff;overflow-x:hidden;}
+
+/* NAVBAR */
+.navbar{background:var(--B);height:68px;display:flex;align-items:center;padding:0 32px;border-bottom:3px solid var(--R);position:sticky;top:0;z-index:1000;}
+.logo-clip{width:200px;height:68px;overflow:hidden;position:relative;flex-shrink:0;margin-right:24px;}
+.logo-clip img{position:absolute;height:170%;width:auto;top:-35%;left:-18%;}
+.nav-items{display:flex;align-items:stretch;flex:1;height:68px;}
+.nav-item{position:relative;display:flex;align-items:center;}
+.nav-trigger{display:flex;align-items:center;gap:4px;padding:0 11px;height:68px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:10px;color:rgba(255,255,255,0.82);text-transform:uppercase;letter-spacing:0.5px;cursor:pointer;border:none;background:none;white-space:nowrap;border-top:3px solid transparent;transition:all 0.15s;text-decoration:none;}
+.nav-trigger:hover,.nav-trigger.open{color:#fff;border-top-color:var(--R);background:rgba(255,255,255,0.04);}
+.nav-trigger.cur{color:var(--O);border-top-color:var(--O);}
+.chev{font-size:7px;opacity:0.55;transition:transform 0.2s;}
+.nav-trigger.open .chev{transform:rotate(180deg);}
+.nav-cta{margin-left:auto;background:var(--R);color:#fff;font-family:'Montserrat',sans-serif;font-weight:700;font-size:10px;padding:10px 16px;border:none;cursor:pointer;text-transform:uppercase;flex-shrink:0;text-decoration:none;display:flex;align-items:center;}
+.lang{color:rgba(255,255,255,0.4);font-size:10px;margin:0 8px;font-family:'Montserrat',sans-serif;font-weight:700;}
+
+/* MEGA MENU */
+.mega{display:none;position:absolute;top:71px;left:0;background:#fff;border-top:3px solid var(--R);z-index:200;box-shadow:0 8px 24px rgba(0,0,0,0.12);}
+.mega.open{display:flex;}
+.mega.wide{min-width:480px;}
+.mega.slim{min-width:210px;flex-direction:column;}
+.mc-left{background:var(--GC);min-width:180px;padding:18px;}
+.mc-right{flex:1;padding:16px 18px 20px;}
+.mp-lbl{font-family:'Lato',sans-serif;font-size:9px;letter-spacing:3px;color:var(--R);text-transform:uppercase;margin-bottom:5px;}
+.mp-title{font-family:'Montserrat',sans-serif;font-weight:900;font-size:13px;color:var(--B);text-transform:uppercase;line-height:1.2;margin-bottom:5px;}
+.mp-desc{font-size:11px;color:#666;line-height:1.6;margin-bottom:10px;}
+.mp-btn{display:inline-block;background:var(--B);color:#fff;font-family:'Montserrat',sans-serif;font-weight:700;font-size:9px;padding:5px 12px;text-transform:uppercase;text-decoration:none;}
+.ms-lbl{font-size:9px;letter-spacing:2px;color:var(--O);text-transform:uppercase;font-family:'Montserrat',sans-serif;font-weight:700;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid rgba(201,168,76,0.3);display:block;margin-top:10px;}
+.ms-lbl:first-child{margin-top:0;}
+.mlinks{list-style:none;margin-bottom:2px;}
+.mlink{display:flex;align-items:center;gap:8px;padding:5px 7px;text-decoration:none;transition:background 0.15s;}
+.mlink:hover{background:rgba(0,32,159,0.04);}
+.mli{width:24px;height:24px;background:var(--B);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
+.mlt-t{font-family:'Montserrat',sans-serif;font-weight:700;font-size:10px;color:var(--B);text-transform:uppercase;}
+.mlt-d{font-size:9px;color:#888;margin-top:1px;}
+.slink{display:flex;align-items:center;gap:8px;padding:9px 14px;text-decoration:none;border-bottom:0.5px solid rgba(0,32,159,0.07);transition:background 0.15s;}
+.slink:hover{background:var(--GC);}
+.sli{font-size:13px;width:20px;text-align:center;flex-shrink:0;}
+.slt-t{font-family:'Montserrat',sans-serif;font-weight:700;font-size:10px;color:var(--B);text-transform:uppercase;}
+.slt-d{font-size:9px;color:#888;margin-top:1px;}
+
+/* DIVIDER */
+.div3{height:3px;background:linear-gradient(to right,var(--B),var(--R),var(--O));}
+
+/* SECTION */
+.sec{padding:64px 40px;}
+.sec.gris{background:var(--GC);}
+.sec.dark{background:var(--BS);}
+.sec.rouge{background:var(--R);}
+.sec.bleu{background:var(--B);}
+.over{font-family:'Lato',sans-serif;font-size:9px;letter-spacing:3px;color:var(--R);text-transform:uppercase;margin-bottom:7px;display:flex;align-items:center;gap:7px;}
+.over::before{content:'';display:inline-block;width:18px;height:2px;background:var(--R);}
+.over.lt{color:rgba(255,255,255,0.5);}
+.over.lt::before{background:var(--R);}
+.sh2{font-family:'Montserrat',sans-serif;font-weight:900;font-size:28px;color:var(--B);text-transform:uppercase;line-height:1.05;margin-bottom:5px;}
+.sh2.wh{color:#fff;}
+.sit{font-family:'Playfair Display',serif;font-size:16px;color:var(--O);font-style:italic;margin-bottom:28px;}
+
+/* HERO PAGE */
+.hpg{padding:52px 40px 44px;position:relative;overflow:hidden;}
+.hpg::after{position:absolute;font-family:'Montserrat',sans-serif;font-weight:900;font-size:88px;color:rgba(255,255,255,0.04);right:-8px;bottom:-8px;pointer-events:none;line-height:1;}
+
+/* BUTTONS */
+.br{background:var(--R);color:#fff;font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;padding:12px 22px;border:none;cursor:pointer;text-transform:uppercase;text-decoration:none;display:inline-block;letter-spacing:0.5px;}
+.bb{background:var(--B);color:#fff;font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;padding:12px 22px;border:none;cursor:pointer;text-transform:uppercase;text-decoration:none;display:inline-block;letter-spacing:0.5px;}
+.bo{background:var(--O);color:var(--BS);font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;padding:12px 22px;border:none;cursor:pointer;text-transform:uppercase;text-decoration:none;display:inline-block;letter-spacing:0.5px;}
+.bout{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,0.35);font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;padding:11px 20px;cursor:pointer;text-transform:uppercase;text-decoration:none;display:inline-block;}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;}
+
+/* FOOTER */
+.footer{background:var(--DK);padding:44px 40px 22px;}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;padding-bottom:32px;border-bottom:0.5px solid rgba(255,255,255,0.1);margin-bottom:18px;}
+.fn{font-family:'Montserrat',sans-serif;font-weight:900;font-size:15px;color:#fff;text-transform:uppercase;}
+.fs{font-family:'Playfair Display',serif;font-size:11px;color:var(--O);margin-bottom:9px;}
+.fd{font-size:12px;color:rgba(255,255,255,0.4);line-height:1.7;margin-bottom:12px;}
+.fsoc{display:flex;gap:5px;}
+.fsoc a{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.65);font-size:10px;padding:4px 9px;font-family:'Montserrat',sans-serif;font-weight:700;text-decoration:none;}
+.fct{font-family:'Montserrat',sans-serif;font-weight:700;font-size:10px;color:var(--O);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+.fl{list-style:none;}
+.fl li{margin-bottom:6px;}
+.fl a{font-size:12px;color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.15s;}
+.fl a:hover{color:var(--O);}
+.fb{display:flex;justify-content:space-between;align-items:center;}
+.fcp{font-size:10px;color:rgba(255,255,255,0.28);}
+.fsl{font-family:'Lato',sans-serif;font-size:10px;color:var(--O);letter-spacing:2px;text-transform:uppercase;}
+.fbup-by{font-size:9px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;}
+.fbup-n{font-family:'Montserrat',sans-serif;font-weight:900;font-size:12px;color:rgba(255,255,255,0.65);}
+.fbup-n span{color:var(--O);}
+.fbup-u a{font-size:10px;color:var(--O);text-decoration:none;}
+</style>
+
+</head>
+<body>
+<nav class="navbar">
+  <div class="logo-clip">
+    <img src="https://raw.githubusercontent.com/BupMark/grenadiers-foundation/main/logo-horizontal.jpg" alt="Grenadiers Foundation" />
+  </div>
+  <div class="nav-items">
+    <div class="nav-item"><a class="nav-trigger" href="index.html">Accueil</a></div>
+    <div class="nav-item" id="ni-f">
+      <button class="nav-trigger" onclick="tog('f')">La Fondation <span class="chev">▼</span></button>
+      <div class="mega wide" id="dd-f">
+        <div class="mc-left"><div class="mp-lbl">À propos</div><div class="mp-title">La Grenadiers Foundation</div><div class="mp-desc">Un mouvement citoyen pour la reconstruction sociale d'Haïti.</div><a class="mp-btn" href="qui-sommes-nous.html">Voir →</a></div>
+        <div class="mc-right">
+          <span class="ms-lbl">Identité & Mission</span>
+          <ul class="mlinks">
+            <li><a class="mlink" href="qui-sommes-nous.html"><div class="mli">🛡</div><div><div class="mlt-t">Qui sommes-nous ?</div><div class="mlt-d">Vision, Mission, Valeurs, 4M</div></div></a></li>
+            <li><a class="mlink" href="mouvement.html"><div class="mli">📜</div><div><div class="mlt-t">Le Mouvement</div><div class="mlt-d">G.R.E.N.A.D.I.E.R.S, Konbitisme</div></div></a></li>
+            <li><a class="mlink" href="contact.html"><div class="mli">📞</div><div><div class="mlt-t">Contact</div><div class="mlt-d">Miami · contact@grenadiersfoundation.org</div></div></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="nav-item" id="ni-g">
+      <button class="nav-trigger" onclick="tog('g')">Les Grenadiers <span class="chev">▼</span></button>
+      <div class="mega wide" id="dd-g">
+        <div class="mc-left"><div class="mp-lbl">Les 4 Figures</div><div class="mp-title">Tous Unis Derrière Eux</div><div class="mp-desc">Dessalines, Depestre, la Sélection, la Tech.</div><a class="mp-btn" href="equipe.html">Voir →</a></div>
+        <div class="mc-right">
+          <span class="ms-lbl">Sélection Nationale</span>
+          <ul class="mlinks">
+            <li><a class="mlink" href="equipe.html"><div class="mli">⚽</div><div><div class="mlt-t">L'Équipe nationale</div><div class="mlt-d">Joueurs, parcours 2026</div></div></a></li>
+            <li><a class="mlink" href="equipe.html#cdm"><div class="mli">🏆</div><div><div class="mlt-t">Coupe du Monde 2026</div><div class="mlt-d">Calendrier, countdown</div></div></a></li>
+          </ul>
+          <span class="ms-lbl">Figures Historiques</span>
+          <ul class="mlinks">
+            <li><a class="mlink" href="mouvement.html#dessalines"><div class="mli">⚔️</div><div><div class="mlt-t">Dessalines</div><div class="mlt-d">Le Grenadier du Sabre</div></div></a></li>
+            <li><a class="mlink" href="evenements.html#depestre"><div class="mli">✒️</div><div><div class="mlt-t">René Depestre</div><div class="mlt-d">Le Grenadier de la Plume</div></div></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="nav-item" id="ni-c">
+      <button class="nav-trigger cur" onclick="tog('c')">Culture & Mémoire <span class="chev">▼</span></button>
+      <div class="mega wide" id="dd-c">
+        <div class="mc-left"><div class="mp-lbl">Patrimoine</div><div class="mp-title">Mémoire & Culture</div><div class="mp-desc">Préserver et transmettre l'identité haïtienne.</div><a class="mp-btn" href="musee.html">Explorer →</a></div>
+        <div class="mc-right">
+          <span class="ms-lbl">Musée & Archives</span>
+          <ul class="mlinks">
+            <li><a class="mlink" href="musee.html"><div class="mli">🏛</div><div><div class="mlt-t">Musée des Grenadiers</div><div class="mlt-d">Vidéos, archives, chronologie</div></div></a></li>
+            <li><a class="mlink" href="musee.html#videos"><div class="mli">📽</div><div><div class="mlt-t">Bibliothèque vidéo</div><div class="mlt-d">Moments forts, interviews</div></div></a></li>
+          </ul>
+          <span class="ms-lbl">Hommage Depestre</span>
+          <ul class="mlinks">
+            <li><a class="mlink" href="evenements.html#depestre"><div class="mli">📖</div><div><div class="mlt-t">Tournée nationale</div><div class="mlt-d">Centenaire Avr.–Août 2026</div></div></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="nav-item" id="ni-a">
+      <button class="nav-trigger" onclick="tog('a')">Agenda <span class="chev">▼</span></button>
+      <div class="mega slim" id="dd-a">
+        <a class="slink" href="evenements.html"><span class="sli">🗓</span><div><div class="slt-t">Tous les événements</div><div class="slt-d">Agenda complet 2026</div></div></a>
+        <a class="slink" href="evenements.html#jacmel"><span class="sli">🎭</span><div><div class="slt-t">Carnaval de Jacmel</div><div class="slt-d">Lancement de la campagne</div></div></a>
+        <a class="slink" href="evenements.html#depestre"><span class="sli">📚</span><div><div class="slt-t">Tournée Depestre</div><div class="slt-d">Avr.–Août 2026</div></div></a>
+        <a class="slink" href="equipe.html#cdm" style="border:none;"><span class="sli">⚽</span><div><div class="slt-t">Matchs Grenadiers</div><div class="slt-d">Coupe du Monde 2026</div></div></a>
+      </div>
+    </div>
+    <div class="nav-item" id="ni-ag">
+      <button class="nav-trigger" onclick="tog('ag')">Agir <span class="chev">▼</span></button>
+      <div class="mega slim" id="dd-ag">
+        <a class="slink" href="agir.html#supporter"><span class="sli">🪪</span><div><div class="slt-t">Carte de Supporter</div><div class="slt-d">Ma carte officielle</div></div></a>
+        <a class="slink" href="agir.html#don"><span class="sli">💰</span><div><div class="slt-t">Faire un Don</div><div class="slt-d">Financer le mouvement</div></div></a>
+        <a class="slink" href="agir.html#partenaire"><span class="sli">🤝</span><div><div class="slt-t">Devenir Partenaire</div><div class="slt-d">Sponsoring</div></div></a>
+        <a class="slink" href="agir.html#programmes" style="border:none;"><span class="sli">🎓</span><div><div class="slt-t">Nos Programmes</div><div class="slt-d">Sport, coding, échecs…</div></div></a>
+      </div>
+    </div>
+  </div>
+  <span class="lang">FR | EN</span>
+  <a class="nav-cta" href="agir.html#supporter">Obtenir ma Carte</a>
+</nav>
+
+<style>
+.hpg4{background:var(--BS);padding:52px 40px 44px;position:relative;overflow:hidden;}
+.vg{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;}
+.vc{background:#fff;border:0.5px solid rgba(0,32,159,0.1);overflow:hidden;}
+.vth{height:78px;display:flex;align-items:center;justify-content:center;position:relative;}
+.vpl{position:absolute;width:28px;height:28px;background:rgba(210,16,52,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;cursor:pointer;}
+.vty{font-size:9px;color:var(--R);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px;padding:7px 9px 0;}
+.vtit{font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;color:var(--B);padding:0 9px 9px;}
+.htl{display:grid;grid-template-columns:76px 1fr;gap:0;margin-top:14px;}
+.hy{font-family:'Montserrat',sans-serif;font-weight:900;font-size:19px;color:var(--R);padding:11px 11px 11px 0;border-right:2px solid var(--R);text-align:right;line-height:1;}
+.hc{padding:11px 0 11px 14px;border-bottom:0.5px solid rgba(0,32,159,0.08);}
+.ht{font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;color:var(--B);text-transform:uppercase;margin-bottom:2px;}
+.hd{font-size:11px;color:#555;line-height:1.5;}
+</style>
+<div class="hpg4">
+  <div class="over lt">Mémoire nationale</div>
+  <h1 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:38px;color:#fff;text-transform:uppercase;line-height:1.05;margin-bottom:7px;">Musée des<br><span style="color:var(--O);">Grenadiers</span></h1>
+  <div style="font-family:'Playfair Display',serif;font-size:17px;color:rgba(255,255,255,0.72);font-style:italic;">L'histoire, les moments forts et les légendes</div>
+</div>
+<div class="div3"></div>
+<section id="videos" class="sec">
+  <div class="over">Médiathèque</div><h2 class="sh2">Bibliothèque Vidéos</h2>
+  <div style="display:flex;gap:4px;margin:18px 0;">
+    <div style="padding:7px 13px;background:var(--R);color:#fff;font-family:'Montserrat',sans-serif;font-weight:700;font-size:10px;text-transform:uppercase;cursor:pointer;">Vidéos</div>
+    <div style="padding:7px 13px;background:#fff;border:0.5px solid rgba(0,32,159,0.18);font-family:'Montserrat',sans-serif;font-weight:700;font-size:10px;text-transform:uppercase;cursor:pointer;color:#666;">Notre Stade (VR)</div>
+    <div style="padding:7px 13px;background:#fff;border:0.5px solid rgba(0,32,159,0.18);font-family:'Montserrat',sans-serif;font-weight:700;font-size:10px;text-transform:uppercase;cursor:pointer;color:#666;">Sélections historiques</div>
+  </div>
+  <div class="vg">
+    <div class="vc"><div class="vth" style="background:linear-gradient(135deg,var(--B),var(--BS));"><div class="vpl">▶</div></div><div class="vty">Animation</div><div class="vtit">Grenadiers Anim — Emmanuel Roody Noël</div></div>
+    <div class="vc"><div class="vth" style="background:linear-gradient(135deg,var(--R),#8b0d1e);"><div class="vpl">▶</div></div><div class="vty">Moments forts</div><div class="vtit">Le parcours vers la qualification 2026</div></div>
+    <div class="vc"><div class="vth" style="background:linear-gradient(135deg,var(--BS),#1a3db5);"><div class="vpl">▶</div></div><div class="vty">Message officiel</div><div class="vtit">Message des Joueurs — Coupe du Monde</div></div>
+    <div class="vc"><div class="vth" style="background:linear-gradient(135deg,#333,#555);"><div class="vpl">▶</div></div><div class="vty">Archive 1974</div><div class="vtit">Haïti à la Coupe du Monde 1974 — RFA</div></div>
+    <div class="vc"><div class="vth" style="background:linear-gradient(135deg,#2d5016,#3b6d11);"><div class="vpl">▶</div></div><div class="vty">Highlights</div><div class="vtit">Nicaragua vs Haïti — Extended Highlights</div></div>
+    <div class="vc" style="display:flex;align-items:center;justify-content:center;border-style:dashed;"><div style="text-align:center;padding:14px;"><div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;color:var(--B);">+ Voir toutes les vidéos</div></div></div>
+  </div>
+</section>
+<section class="sec gris">
+  <div class="over">Chronologie</div><h2 class="sh2">L'Histoire de la Sélection</h2>
+  <div class="htl">
+    <div class="hy">1803</div><div class="hc"><div class="ht">Dessalines — Fondation de la Nation</div><div class="hd">Jean-Jacques Dessalines libère Haïti et fonde la première République noire indépendante du monde. Le premier des Grenadiers.</div></div>
+    <div class="hy">1946</div><div class="hc"><div class="ht">René Depestre — Révolution Culturelle</div><div class="hd">Le Grenadier de la Plume éveille la conscience nationale haïtienne par la littérature et la pensée révolutionnaire.</div></div>
+    <div class="hy">1974</div><div class="hc"><div class="ht">Première Qualification Mondiale — RFA</div><div class="hd">Haïti se qualifie pour la première fois à la Coupe du Monde. Un moment fondateur pour le football et l'identité nationale.</div></div>
+    <div class="hy" style="color:var(--R);">2026</div><div class="hc" style="border-bottom:none;"><div class="ht" style="color:var(--R);">Retour historique — Coupe du Monde 2026</div><div class="hd">52 ans après 1974, Haïti revient sur la scène mondiale. Une nouvelle génération écrit l'histoire nationale.</div></div>
+  </div>
+</section>
+<section class="sec bleu">
+  <div class="over lt">Architecture 4M</div><h2 class="sh2 wh">Le Musée comme Pilier</h2>
+  <div style="font-family:'Playfair Display',serif;font-size:15px;color:var(--O);font-style:italic;margin-bottom:24px;">Institutionnaliser l'identité et transmettre aux générations futures</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+    <div style="background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.1);padding:18px;border-top:2px solid var(--O);"><div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;color:var(--O);text-transform:uppercase;margin-bottom:7px;">Archives numériques</div><div style="font-size:12px;color:rgba(255,255,255,0.62);line-height:1.6;">Préservation et numérisation du patrimoine haïtien — matchs, discours, documents historiques.</div></div>
+    <div style="background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.1);padding:18px;border-top:2px solid var(--R);"><div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;color:var(--O);text-transform:uppercase;margin-bottom:7px;">Expériences immersives</div><div style="font-size:12px;color:rgba(255,255,255,0.62);line-height:1.6;">Visite virtuelle des stades historiques, galeries numériques interactives pour tous publics.</div></div>
+    <div style="background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.1);padding:18px;border-top:2px solid var(--O);"><div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;color:var(--O);text-transform:uppercase;margin-bottom:7px;">Transmission culturelle</div><div style="font-size:12px;color:rgba(255,255,255,0.62);line-height:1.6;">Ateliers scolaires, programmes éducatifs, partenariats avec les institutions culturelles haïtiennes.</div></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="fg">
+    <div>
+      <div class="fn">GRENADIERS</div>
+      <div class="fs">Foundation</div>
+      <p class="fd">Un mouvement citoyen, patriotique et stratégique qui transforme la ferveur sportive en puissance civique, culturelle, éducative et numérique.</p>
+      <div class="fsoc"><a href="#">IG</a><a href="#">TK</a><a href="#">FB</a></div>
+    </div>
+    <div>
+      <div class="fct">Navigation</div>
+      <ul class="fl">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="mouvement.html">Le Mouvement</a></li>
+        <li><a href="equipe.html">L'Équipe</a></li>
+        <li><a href="evenements.html">Événements</a></li>
+        <li><a href="musee.html">Musée</a></li>
+        <li><a href="agir.html">Agir</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="fct">La Fondation</div>
+      <ul class="fl">
+        <li><a href="qui-sommes-nous.html">Qui sommes-nous ?</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="fct">Agir</div>
+      <ul class="fl">
+        <li><a href="agir.html#supporter">Carte Supporter</a></li>
+        <li><a href="agir.html#don">Faire un Don</a></li>
+        <li><a href="agir.html#partenaire">Partenaire</a></li>
+      </ul>
+      <div style="margin-top:14px;padding-top:12px;border-top:0.5px solid rgba(255,255,255,0.1);">
+        <div class="fbup-by">Proposition réalisée par</div>
+        <div class="fbup-n">BUP <span>Mark</span></div>
+        <div class="fbup-u"><a href="https://www.bup-mark.com" target="_blank">www.bup-mark.com</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="fb">
+    <div class="fcp">© 2026 Grenadiers Foundation — Tous droits réservés</div>
+    <div class="fsl">Pour l'Honneur | Pour la Patrie | Pour la Victoire</div>
+  </div>
+</footer>
+
+<script>
+var cur=null;
+function tog(id){
+  var dd=document.getElementById('dd-'+id);
+  var tr=document.querySelector('#ni-'+id+' .nav-trigger');
+  if(!dd)return;
+  if(cur&&cur!==id){
+    var pd=document.getElementById('dd-'+cur);
+    var pt=document.querySelector('#ni-'+cur+' .nav-trigger');
+    if(pd){pd.classList.remove('open');}
+    if(pt){pt.classList.remove('open');}
+  }
+  var isOpen=dd.classList.contains('open');
+  if(isOpen){dd.classList.remove('open');tr.classList.remove('open');cur=null;}
+  else{dd.classList.add('open');tr.classList.add('open');cur=id;}
+}
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.nav-item')&&!e.target.closest('.mega')){
+    ['f','g','c','a','ag'].forEach(function(id){
+      var dd=document.getElementById('dd-'+id);
+      var tr=document.querySelector('#ni-'+id+' .nav-trigger');
+      if(dd)dd.classList.remove('open');
+      if(tr)tr.classList.remove('open');
+    });cur=null;
+  }
+});
+(function countdown(){
+  var t=new Date('2026-06-11T00:00:00');
+  function u(){
+    var now=new Date(),diff=t-now;
+    if(diff<=0)return;
+    var d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+    var e=function(id){return document.getElementById(id);};
+    if(e('cd-d'))e('cd-d').textContent=String(d).padStart(2,'0');
+    if(e('cd-h'))e('cd-h').textContent=String(h).padStart(2,'0');
+    if(e('cd-m'))e('cd-m').textContent=String(m).padStart(2,'0');
+    if(e('cd-s'))e('cd-s').textContent=String(s).padStart(2,'0');
+  }
+  u();setInterval(u,1000);
+})();
+</script>
+
+</body>
+</html>
